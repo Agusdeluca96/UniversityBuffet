@@ -1,0 +1,48 @@
+/*.cuerpo{
+	position: relative;
+	top: 160px;
+	left: 0;
+}*/
+
+article {
+	border: 3px solid #008CBA;
+    border-radius: 12px;
+	overflow: hidden;
+	margin-bottom: 3%;
+	text-align: center;
+	font-family: 'Amatic SC', cursive;
+}
+
+article h2 {
+	font-size: 40px;
+}
+
+article p {
+	font-family: "Lucida Console", Monaco, monospace
+}
+
+article img {
+	width: 90%;
+}
+
+section {
+	border: 3px solid #008CBA;
+    border-radius: 12px;
+	overflow: hidden;
+	margin-top: 5%;
+	margin-bottom: 3%;
+	text-align: center;
+	font-family: 'Amatic SC', cursive;
+}
+
+.right_side article {
+	width: 80%;
+}
+
+.right_side article img {
+	border-radius: 12px;
+}
+
+#mantenimiento{
+	width: 100%;
+}

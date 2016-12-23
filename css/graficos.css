@@ -1,0 +1,33 @@
+/*.cuerpo{
+	position: relative;
+	top: 160px;
+	left: 0;
+}*/
+
+article {
+	background-color: #ffffff;
+}
+
+article div {
+	width: 90%;
+	margin-left: 2%;
+}
+
+h2 {
+	text-align: center;
+}
+
+h4 {
+	text-align: center;
+}
+
+.graficos {
+	border-style: solid;
+	border-radius: 12px;
+	border-width: 3px;
+	border-color: #008CBA;
+	font-family: Helvetica;
+	margin-right: 0%;
+	margin-bottom: 3%;
+	width: 90%;
+}

@@ -1,0 +1,50 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Configuracion del Sitio</h2>
+		<form method="post" action="./?action=config_modify" class="productForm">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="titulo" class="">Titulo</label>
+		            <input id="titulo" name="titulo" class="inputElement" value="{{config.getTitulo}}" type="text" placeholder="Ingresa el titulo de la pagina aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="contacto" class="">Mail de Contacto</label>
+		            <input id="contacto" name="contacto" class="inputElement" value="{{config.getContacto}}" type="email" placeholder="Ingresa el mail de contacto aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="config" class="">Paginaci&oacute;n</label>
+		            <input id="config" name="paginas" onkeypress="return justNumbers(event);" value="{{config.getPaginas}}" type="text" class="inputElement" placeholder="Cantidad" required>
+		        </div>
+		        <div class=""> 
+		            <label for="habilitado" class="">Pagina Habilitada</label>
+		            <select id="habilitado" name="mensaje">
+		            	<option>Seleccione una opcion</option>
+		            {% if config.getMensaje == 0 %}
+		            	<option value="0" selected> No </option>
+		                <option value="1"> Si </option>
+		            {% else %}
+		            	<option value="0"> No </option>
+		                <option value="1" selected> Si </option>
+		            {% endif %}
+		        	</select>
+		        </div>
+		        <div class="">
+		        	<label for="descripcion" class="">Descripci&oacute;n</label>
+		        	<textarea maxlength="255" name="descripcion" id="descripcion" class="inputElement" placeholder="Ingresa la descripcion de la pagina aqui ..." required>{{config.getDescripcion}}</textarea>
+		        </div>
+		    </div>
+			<div>
+			    <button id="centro" type="submit">Modificar</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

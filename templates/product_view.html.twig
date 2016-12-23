@@ -1,0 +1,54 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+	<script src="js/product_validation.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Observaci&oacute;n de Producto</h2>
+	    <div class="">
+	        <div class="">
+	            <label class="">Nombre</label>
+	            <span class="inputElement">{{producto.getNombre}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Marca</label>
+	            <span class="inputElement">{{producto.getMarca}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Cantidad de Stock</label>
+	            <span class="inputElement">{{producto.getStock}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Cantidad Minima de Stock</label>
+	            <span class="inputElement">{{producto.getStockMinimo}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Categoria</label>
+                {% for categ in categorias %}
+					{% if categ.getId == producto.getCategoria %}
+					<span class="inputElement">{{categ.getNombre}}</span>
+					{% endif %}
+				{% endfor %}
+	        </div>
+	        <div class="">
+	            <label class="">Proveedor</label>
+	            <span class="inputElement">{{producto.getProveedor}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Precio de Venta Unitario</label>
+	            <span class="inputElement">{{producto.getPrecioVentaUnitario}}</span>
+	        </div>
+	        <div class="">
+	            <label class="">Descripcion</label>
+	            <span class="inputElement">{{producto.getDescripcion}}</span>
+	        </div>
+	        <a id="a_izquierda" href="./?action=product_modify_check&id={{producto.getId}}">Modificar</a>
+	    	<a id="a_derecha" href="./?action=product_list">Volver al listado</a>
+	    </div>
+	</article>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}	
+{% endblock %}
+
+{% block content %}
+	<div class="right_side"> 
+		<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+			<h2>Visualizaci&oacute; de Pedido Online</h2>
+			<div>
+				<label>Fecha: {{pedido.getFechaAlta}}</label>
+			</div>
+			<div>
+				<table>
+	                <tr>
+	                	<th><label for="producto" id="titulo">Producto</label></th>
+	                	<th><label for="marca" id="titulo">Marca</label></th>
+	                	<th><label for="precio" id="titulo">Precio</label></th>
+	                	<th><label for="cantidad" id="titulo">Cantidad deseada</label></th>
+	            	</tr>
+				    {% for product in productos %}
+				        <tr>
+		                	<td><label>{{product.getProducto.getNombre}}</label></td>
+		                	<td><label>{{product.getProducto.getMarca}}</label></td>
+		                	<td><label>${{product.getProducto.getPrecioVentaUnitario}}</label></td>
+		               		<td><label>{{product.getCantidad}}</label></td>
+				        </tr>
+				    {% endfor %}
+				</table>
+			</div>
+			<div>
+				<label>Observaciones:</label>
+		        <label>{{pedido.getObservaciones}}</label>
+		    </div>
+		    <div>
+	        	{% if rol == 0 or rol == 1 %}
+	        		<button id="bIzquierda" onclick="window.location.href='./?action=order_accept&id={{pedido.getId}}'">Aceptar</button>
+	                <button id="bDerecha" onclick="window.location.href='./?action=order_cancel_check&id={{pedido.getId}}'">Cancelar</button>
+	        	{% endif %}
+	            {% if rol == 2 %}
+	                {% if pedido.getTiempo < 30 %}
+	                    <button id="centro" onclick="window.location.href='./?action=order_cancel_check&id={{pedido.getId}}'">Cancelar</button>
+	                {% endif %}
+	            {% endif %}	
+	        </div>    	
+		</article>
+	</div>
+{% endblock %}

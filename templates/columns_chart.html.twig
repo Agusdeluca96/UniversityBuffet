@@ -1,0 +1,71 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/graficos.css"> 	<!--LINK A LA HOJA DE ESTILO-->
+    <script>
+        $(function () {
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Ganancia'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Ganancia del dia: <b>${point.y:.1f}</b>'
+            },
+            series: [{
+                name: 'Population',
+                data: {{info|raw}},
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="graficos">	<!--CUERPO DE LA PAGINA-->
+		<h2>Grafico de Barras de Ingresos</h2>
+		<div id="container"></div>
+	</article>
+</div>
+{% endblock %}

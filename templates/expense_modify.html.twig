@@ -1,0 +1,89 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		var max_fields      = 10; //maximum input boxes allowed
+		var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+		var add_button      = $(".add_field_button"); //Add button ID
+		var x = 1; //initlal text box count
+		$(add_button).click(function(e){ //on add input button click
+		    e.preventDefault();
+		    if(x < max_fields){ //max input box allowed
+		        x++; //text box increment
+			    $(wrapper).append('<div><select id="seleccion" name="producto[]" required>					                    <option value="">Selecciona un producto</option>					                    {% for product in productos %}                        					<option value="{{product.getId}}">{{ product.getNombre }}</option>                        				{% endfor %}					                </select>					               	<input type="number" id="cantidad" value="1" min="1" max="{{product.getStock}}" name="cantidad[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="Cantidad" required>					               	<input type="float" id="cantidad" value="0" min="0" name="precio[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="  Precio" required><br><button id="remove" class="remove_field">Borrar</button></div>'); //add input box
+		    }
+		});
+
+		$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		    e.preventDefault(); $(this).parent('div').remove(); x--;
+		})
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Modificaci&oacute;n de Compra</h2>
+		<form method="post" action="./?action=expense_modify&id={{compra.getId}}" class="productForm" enctype="multipart/form-data">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="fecha" class="">Fecha</label>
+		            <input type="date" id="fecha" name="fecha" class="inputElement" value="{{compra.getFecha}}" required>
+		        </div>
+		        <div class="">
+		            <label for="cuit" class="">Cuit Proveedor</label>
+		            <input type="text" id="cuit" name="cuit" class="inputElement" onkeypress="return justNumbers(event);" maxlength="11" value="{{compra.getCuit}}" placeholder="Ingresa el CUIT aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="numFact" class="">Numero de Factura</label>
+		            <input type="text" id="numFact" name="numFact" class="inputElement" onkeypress="return justNumbers(event);" maxlength="20" value="{{compra.getFactura}}" placeholder="Ingrese el numero de la factura aqui ..." required>
+		        </div>
+		        <div class="factura">
+            		<label class="factura">Factura actual</label>
+            		<input type="hidden" name="facturaActual" value="{{compra.getImagenFactura}}">
+            		<img id="factura" src="{{compra.getImagenFactura}}" alt="Factura">
+            	</div>
+            	<div>
+            		<label for="imagenFactura" class="factura">Modificar Factura</label>
+            		<input id="imagenFactura" name="imagenFactura" type="file">
+        		</div>
+		        <div class="">
+		            <label class="">Productos</label>
+			            <div id="boton" class="input_fields_wrap">
+				        {% for product_compra in productos_compra %}
+		                	<div>
+		                    	<select class="seleccion" name="producto[]" required>
+		                    		<option value="">Selecciona un producto</option>
+				                {% for product in productos %}
+                    				{% if product.getId == product_compra.getProductoId %}
+										<option value="{{product.getId}}" selected>{{ product.getNombre }}</option>
+                					{% else %}
+										<option value="{{product.getId}}">{{ product.getNombre }}</option>
+               						{% endif %}
+                   				{% endfor %}
+                				</select>
+                				<input type="number" class="cantidad" min="0" name="cantidad[]" onkeypress="return justNumbers(event);" value="{{product_compra.getCantidad}}" placeholder="Cantidad" required>
+			               		<input type="number" step="0.01" class="cantidad" min="0" name="precio[]" onkeypress="return justNumbers(event);" value="{{product_compra.getPrecioUnidad}}" placeholder="  Precio"  required>
+			               		<br>
+			               		<button class="remove_field">Borrar</button>
+			               		<br>
+			               		<br>	
+		               		</div>
+		               	{% endfor %}
+			            </div>
+			        <button class="add_field_button">Agregar otro producto</button>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Modificar</button>
+			    <button id="derecha" type="reset" onClick="window.location.href='./?action=expense_list'">Volver al listado</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

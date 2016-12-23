@@ -1,0 +1,15 @@
+<nav>   <!--MENU SUPERIOR-->
+    <ul class="menu">
+        <li><a href="./?action=home">Inicio</a></li>
+        {% if rol == 2 %}
+        <li><a href="./?action=order_add">Pedido Online</a></li>
+        <li><a href="./?action=order_list_dates">Listar Pedidos</a></li>
+        {% endif %}
+        {% if rol is not null %}
+        <li><a href="./?action=logout">Logout</a></li>
+        {% else %}
+        <li><a href="./?action=login">Login</a></li>
+        <li><a href="./?action=user_add">Register</a></li>
+        {% endif %}            
+    </ul>
+</nav>

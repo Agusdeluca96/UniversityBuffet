@@ -1,0 +1,33 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+        <div class="right_side">
+            <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+                <h2>Listado de Productos</h2>
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad vendida</th>
+                    </tr>
+                    {% for product in productos %}
+                    <tr>
+                        <td>{{ product.getProducto }}</td>
+                        <td>{{ product.getCantidad }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if num_pagina > 0 %}
+                <button id="izquierda" type="submit" onClick="window.location.href='./?action=summaryProducts_list&anterior={{num_pagina}}&desde={{desde}}&hasta={{hasta}}'">Anterior</button>
+                {% endif %}
+                {% if num_pagina < total_paginas %}
+                <button id="derecha" type="reset" onClick="window.location.href='./?action=summaryProducts_list&siguiente={{num_pagina}}&desde={{desde}}&hasta={{hasta}}'">Siguiente</button>
+                {% endif %}
+            </article>
+            <button onclick="window.location.href='./?action=summaryProducts_list_PDF&desde={{desde}}&hasta={{hasta}}'">Listar PDF</button>
+        </div>
+{% endblock %}

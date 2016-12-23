@@ -1,0 +1,34 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    <script type="text/javascript" src="js/jspdf.debug.js"></script>
+    <script type="text/javascript" src="js/exportPDF.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="right_side">
+        <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+            <h2>Listado de Productos</h2>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad vendida</th>
+                </tr>
+                {% for product in productos %}
+                <tr>
+                    <td>{{ product.getProducto }}</td>
+                    <td>{{ product.getCantidad }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </article>
+    </div>
+    <div>
+        <script type="text/javascript">
+            savePDF();
+            window.location.href='./?action=summaryProducts_list&desde={{desde}}&hasta={{hasta}}';
+        </script>
+    </div>
+
+{% endblock %}

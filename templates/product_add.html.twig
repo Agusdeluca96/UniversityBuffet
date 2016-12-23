@@ -1,0 +1,61 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Registro de Producto</h2>
+		<form method="post" action="./?action=product_add_check" class="productForm">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="nombre" class="">Nombre</label>
+		            <input type="text" id="nombre" name="nombre" class="inputElement" placeholder="Ingresa el nombre aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="marca" class="">Marca</label>
+		            <input type="text" id="marca" name="marca" class="inputElement" placeholder="Ingresa la marca aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="cantStock" class="">Cantidad de Stock</label>
+		            <input type="number" id="cantStock" onkeypress="return justNumbers(event);" name="cantStock" class="inputElement" maxlength="6" placeholder="Ingrese la cantidad de stock aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="cantMinStock" class="">Cantidad Minima de Stock</label>
+		            <input type="number" id="cantMinStock" onkeypress="return justNumbers(event);" name="cantMinStock" class="inputElement" maxlength="6" placeholder="Ingrese el stock minimo aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="categoria" class="">Categoria</label>
+		            <div class="select">
+		                <select id="seleccion" name="categoria" required>
+		                    <option value="">Selecciona una Categoria</option>
+		                    {% for categ in categorias %}
+	        					<option value="{{categ.getId}}">{{ categ.getNombre }}</option>
+	        				{% endfor %}
+		                </select>
+		            </div>
+		        </div>
+		        <div class="">
+		            <label for="proveedor" class="">Proveedor</label>
+		            <input type="text" id="proveedor" name="proveedor" class="inputElement" placeholder="Ingrese el proveedor aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="precioVentaUnidad" class="">Precio de Venta Unitario</label>
+		            <input type="float" id="precioVentaUnidad" onkeypress="return justNumbers(event);" name="precioVentaUnidad" class="inputElement" maxlength="6" placeholder="Ingrese precio venta unitario aqui" required>
+		        </div>
+		        <div class="">
+		            <label for="descripcion" class="">Descripcion</label>
+		            <input type="text" id="descripcion" name="descripcion" class="inputElement" placeholder="Ingresa el codigo de barra aqui ..." required>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Agregar</button>
+			    <button id="derecha" type="reset">Reset</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

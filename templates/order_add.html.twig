@@ -1,0 +1,42 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}	
+	<script type="text/javascript">
+		function false(){
+		    return false;
+		  }
+	</script>
+{% endblock %}
+
+{% block content %}
+	<div class="right_side"> 
+		<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+			<h2>Registro de Pedido Online</h2>
+			<form method="post" action="./?action=order_add_check" class="productForm">
+				<input type="hidden" name="token" value="{{token}}" />
+				<table>
+                    <tr>
+	                	<th><input type="hidden"></th>
+	                	<th><label id="titulo">Producto</label></th>
+	                	<th><label id="titulo2">Marca</label></th>
+	                	<th><label id="titulo3">Precio</label></th>
+	                	<th><label id="titulo4">Cantidad deseada</label></th>
+                	</tr>
+				    {% for product in productos %}
+				        <tr>
+		                	<td><input type="hidden" name="producto[]" value="{{product.getId}}"></td>
+		                	<td><label>{{product.getNombre}}</label></td>
+		                	<td><label>{{product.getMarca}}</label></td>
+		                	<td><label>${{product.getPrecioVentaUnitario}}</label></td>
+		               		<td><input type="number" value="0" min="0" max="{{product.getStock}}" onkeypress="return false();" class="cantidad" name="cantidad[]" placeholder="Cantidad" required></td>
+				        </tr>
+				    {% endfor %}
+				</table>
+		        <textarea maxlength="255" name="observaciones" id="observaciones" class="inputElement" placeholder="Ingresa las observaciones de la compra aqui ..."></textarea>
+				<button id="izquierdaa" type="submit">Confirmar</button>
+			    <button id="derechaa" type="reset">Reset</button>
+			</form>
+		</article>
+	</div>
+{% endblock %}

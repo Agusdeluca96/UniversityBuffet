@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Buffet Virtual</title>	<!--TEXTO EN PESTAÑA-->
+	<link rel="stylesheet" type="text/css" href="css/login.css">	<!--LINK A LA HOJA DE ESTILO-->
+	<link rel="stylesheet" type="text/css" href="css/layout.css">	<!--LINK A LA HOJA DE ESTILO-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+</head>
+<body>
+			<div class="header">
+				<h1><img src="images/logo.jpg" alt="Buffet Virtual - Facultad de Informatica"></h1>	<!--TITULO PRINCIPAL-->
+			</div>
+	<div class="topnav">
+		{% include 'navbar_top.html.twig' %}
+	</div>
+			<div class="body">
+			    <section>
+			        <form action="index.php?action=login_user_check" class="login" method="POST">
+			        	<input type="hidden" name="token" value="{{token}}" />
+			            <h2>Iniciar Sesion</h2>
+			            <input type="text" id="usuario" name="username" class="login-input" placeholder="Ingrese su Usuario" required/>
+			            <input type="password" id="password" name="password" class="login-input" placeholder="Ingrese su Contrase&ntilde;a" required/>
+			            <input type="submit" class="login-button" value="Login">
+			            <p>No estas registrado? <a href="./?action=user_add"><span>Registrate ya!</span></a></p>
+			        </form>
+			    </section>
+			</div>	
+				<footer>	<!--FOOTER-->
+					<p>Grupo 27 - Proyecto de Software - Facultad de Informatica UNLP</p>
+		<!-- 		  	<p>Email de contacto: <a href="mailto:cdlv@gmail.com"> cdlv@gmail.com</a></p>-->		
+				</footer>
+</body>
+</html>

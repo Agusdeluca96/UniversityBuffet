@@ -1,0 +1,25 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}  
+{% endblock %}
+
+{% block content %}
+    <div class="right_side"> 
+        <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+            <h2>Listado de Pedidos Online</h2>
+            <form method="post" action="./?action=order_list" class="productForm">
+                <input type="hidden" name="token" value="{{token}}" />
+                <div>   
+                    <label id="inline">Fecha Inicio: </label>
+                    <input id="fecha" name="desde" type="date" required>
+                    <label id="inline2">Fecha Fin: </label>
+                    <input id="fecha2" name="hasta" type="date" required>
+                </div>
+                <div>
+                    <button id="centro" type="submit">Buscar</button>
+                </div>
+            </form>
+        </article>
+    </div>
+{% endblock %}

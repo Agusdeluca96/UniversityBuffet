@@ -1,0 +1,66 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="css/productos_agregar.css"> 	<!--LINK A LA HOJA DE ESTILO-->
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Modificaci&oacute;n de Producto</h2>
+		<form method="post" action="./?action=product_modify&id={{producto.getId}}" class="productForm">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="nombre" class="">Nombre</label>
+		            <input type="text" id="nombre" name="nombre" class="inputElement" value="{{producto.getNombre}}" placeholder="Ingresa el nombre aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="marca" class="">Marca</label>
+		            <input type="text" id="marca" name="marca" class="inputElement" value="{{producto.getMarca}}" placeholder="Ingresa la marca aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="cantStock" class="">Cantidad de Stock</label>
+		            <input type="text" id="cantStock" onkeypress="return justNumbers(event);" name="cantStock" class="inputElement" maxlength="6" value="{{producto.getStock}}" placeholder="Ingrese la cantidad de stock aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="cantMinStock" class="">Cantidad Minima de Stock</label>
+		            <input type="text" id="cantMinStock" onkeypress="return justNumbers(event);" name="cantMinStock" maxlength="6" class="inputElement" value="{{producto.getStockMinimo}}" placeholder="Ingrese el stock minimo aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="seleccion" class="">Categoria</label>
+		            <div class="select">
+		                <select id="seleccion" name="categoria" required>
+		                    <option value="">Selecciona una Categoria</option>
+		                    {% for categ in categorias %}
+            					{% if categ.getId == producto.getCategoria %}
+									<option value="{{categ.getId}}" selected>{{ categ.getNombre }}</option>
+            					{% else %}
+									<option value="{{categ.getId}}">{{ categ.getNombre }}</option>
+            					{% endif %}
+            				{% endfor %}
+		                </select>
+		            </div>
+		        </div>
+		        <div class="">
+		            <label for="proveedor" class="">Proveedor</label>
+		            <input type="text" id="proveedor" name="proveedor" class="inputElement" value="{{producto.getProveedor}}" placeholder="Ingrese el proveedor aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="precioVentaUnidad" class="">Precio de Venta Unitario</label>
+		            <input type="number" step="0.01" id="precioVentaUnidad" onkeypress="return justNumbers(event);" name="precioVentaUnidad" class="inputElement" value="{{producto.getPrecioVentaUnitario}}" placeholder="Ingrese precio venta unitario aqui" required>
+		        </div>
+		        <div class="">
+		            <label for="descripcion" class="">Descripcion</label>
+		            <input type="text" id="descripcion" name="descripcion" class="inputElement" value="{{producto.getDescripcion}}" placeholder="Ingresa el codigo de barra aqui ..." required>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Confirmar</button>
+			    <button id="derecha" type="reset" onClick="window.location.href='./?action=product_list'">Volver al listado</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

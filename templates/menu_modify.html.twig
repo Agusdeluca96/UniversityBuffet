@@ -1,0 +1,82 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		var max_fields      = 10; //maximum input boxes allowed
+		var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+		var add_button      = $(".add_field_button"); //Add button ID
+		var x = 1; //initlal text box count
+		$(add_button).click(function(e){ //on add input button click
+		    e.preventDefault();
+		    if(x < max_fields){ //max input box allowed
+		        x++; //text box increment
+			    $(wrapper).append('<div><select id="seleccion" name="producto[]" required>					                    <option value="">Selecciona un producto</option>					                    {% for product in productos %}                        					<option value="{{product.getId}}">{{ product.getNombre }}</option>                        				{% endfor %}					                </select>					               	<br><button id="remove" class="remove_field">Borrar</button></div>'); //add input box
+		    }
+		});
+
+		$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		    e.preventDefault(); $(this).parent('div').remove(); x--;
+		})
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Modificaci&oacute;n de Men&uacute; del d&iacute;a</h2>
+		<form method="post" action="./?action=menu_modify&id={{menu.getId}}" class="productForm" enctype="multipart/form-data">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="fecha" class="">Fecha</label>
+		            <input type="date" id="fecha" name="fecha" class="inputElement" value="{{menu.getFecha}}" required>
+		        </div>
+		        <div class="">
+		            <label for="fecha" class="">Habilitado</label>
+		            <select id="habilitado" name="habilitado" required>
+		            	<option></option>
+		            {% if menu.getHabilitado == 0 %}
+		            	<option value="0" selected> No </option>
+		                <option value="1"> Si </option>
+		            {% else %}
+		            	<option value="0"> No </option>
+		                <option value="1" selected> Si </option>
+		            {% endif %}
+		        	</select>
+		        </div>
+		        <div class="">
+		            <label for="productos" class="">Productos</label>
+			            <div id="boton" class="input_fields_wrap">
+				        {% for product_menu in productos_menu %}
+		                	<div>
+		                    	<select id="seleccion" name="producto[]" required>
+		                    		<option value="">Selecciona un producto</option>
+				                {% for product in productos %}
+                    				{% if product.getId == product_menu.getId %}
+										<option value="{{product.getId}}" selected>{{ product.getNombre }}</option>
+                					{% else %}
+										<option value="{{product.getId}}">{{ product.getNombre }}</option>
+               						{% endif %}
+                   				{% endfor %}
+			                	</select>
+			                	<br>
+			               		<button id="remove" class="remove_field">Borrar</button>
+			               		<br>
+			            	</div>
+			            {% endfor %}
+			            </div>
+			        <button class="add_field_button">Agregar otro producto</button>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Confirmar</button>
+			    <button id="derecha" type="reset" onClick="window.location.href='./?action=menu_list'">Volver al listado</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

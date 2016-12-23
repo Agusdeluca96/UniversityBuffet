@@ -1,0 +1,33 @@
+{% extends "list_parent.html.twig" %}
+
+{% block content %}
+        <div class="right_side">
+            <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+                <h2>Listado de Productos</h2>
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Proveedor</th>
+                        <th>Stock actual</th>
+                        <th>Stock minimo</th>
+                        <th>Precio Unitario</th>
+                    </tr>
+                    {% for product in productos %}
+                    <tr>
+                        <td>{{ product.getNombre }}</td>
+                        <td>{{ product.getProveedor }}</td>
+                        <td>{{ product.getStock }}</td>
+                        <td>{{ product.getStockMinimo }}</td>
+                        <td>{{ product.getPrecioVentaUnitario }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if num_pagina > 0 %}
+                <button id="izquierda" type="submit" onClick="window.location.href='./?action=product_limit_stock&anterior={{num_pagina}}'">Anterior</button>
+                {% endif %}
+                {% if num_pagina < total_paginas %}
+                <button id="derecha" type="reset" onClick="window.location.href='./?action=product_limit_stock&siguiente={{num_pagina}}'">Siguiente</button>
+                {% endif %}
+            </article>
+        </div>
+{% endblock %}

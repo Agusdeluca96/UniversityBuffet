@@ -1,0 +1,56 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/graficos.css"> 	<!--LINK A LA HOJA DE ESTILO-->
+    <script>
+    $(function () {
+
+        $(document).ready(function () {
+
+            // Build the chart
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: 'Productos vendidos: <b>{point.y:.1f}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Ganancia',
+                    colorByPoint: true,
+                    data: {{info|raw}},
+                }]
+            });
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="graficos">	<!--CUERPO DE LA PAGINA-->
+		<h2>Grafico de Torta de Ingresos</h2>
+		<div id="container"></div>
+	</article>
+</div>
+{% endblock %}

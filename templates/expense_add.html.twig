@@ -1,0 +1,72 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		var max_fields      = 10; //maximum input boxes allowed
+		var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+		var add_button      = $(".add_field_button"); //Add button ID
+		var x = 1; //initlal text box count
+		$(add_button).click(function(e){ //on add input button click
+		    e.preventDefault();
+		    if(x < max_fields){ //max input box allowed
+		        x++; //text box increment
+			    $(wrapper).append('<div><select id="seleccion" name="producto[]" required>					                    <option value="">Selecciona un producto</option>					                    {% for product in productos %}                        					<option value="{{product.getId}}">{{ product.getNombre }}</option>                        				{% endfor %}					                </select>					               	<input type="number" id="cantidad" value="1" min="1" max="{{product.getStock}}" name="cantidad[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="Cantidad" required>					               	<input type="float" id="cantidad" value="0" min="0" name="precio[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="Precio" required><br><button id="remove" class="remove_field">Borrar</button></div>'); //add input box
+		    }
+		});
+
+		$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		    e.preventDefault(); $(this).parent('div').remove(); x--;
+		})
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Registro de Compra</h2>
+		<form method="post" action="./?action=expense_add_check" class="productForm" enctype="multipart/form-data">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="fecha" class="">Fecha</label>
+		            <input type="date" id="fecha" name="fecha" class="inputElement" required>
+		        </div>
+		        <div class="">
+		            <label for="cuit" class="">Cuit Proveedor</label>
+		            <input type="number" id="cuit" name="cuit" class="inputElement" onkeypress="return justNumbers(event);" placeholder="Ingresa el CUIT aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="numFact" class="">Numero de Factura</label>
+		            <input type="number" id="numFact" name="numFact" class="inputElement" onkeypress="return justNumbers(event);" placeholder="Ingrese el numero de la factura aqui ..." required>
+		        </div>
+		        <div class="">
+            		<label for="imagenFactura">Cargar Factura</label>
+            		<input id="imagenFactura" name="imagenFactura" type="file" required>
+        		</div>
+		        <div class="">
+		            <label for="seleccion" class="">Productos / Cantidad / Precio</label>
+			            <div id="boton" class="input_fields_wrap">
+			                <div><select id="seleccion" name="producto[]" required>
+			                    <option value="">Selecciona un producto</option>
+			                    {% for product in productos %}
+                					<option value="{{product.getId}}">{{ product.getNombre }}</option>
+                				{% endfor %}
+			                </select>
+			               	<input type="number" id="cantidad" value="1" min="1" name="cantidad[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="Cantidad" required>
+			               	<input type="number" step="0.01" id="cantidad2" value="0" min="0" name="precio[]" onkeypress="return justNumbers(event);" class="inputElement" placeholder="Precio" required></div>
+			            </div>
+			        <button class="add_field_button">Agregar otro producto</button>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" value="Upload Image" name="submit" type="submit">Agregar</button>
+			    <button id="derecha" type="reset">Reset</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

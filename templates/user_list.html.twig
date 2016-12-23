@@ -1,0 +1,56 @@
+{% extends "list_parent.html.twig" %}
+
+{% block content %}
+        <div class="right_side">
+            <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+                <h2>Listado de Usuarios</h2>
+                <table>
+                    <tr>
+                        <th>Nombre de Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Telefono</th>
+                        <th>Rol</th>
+                        <th>Habilitado</th>
+                        <th></th> <!-- BOTON MODIFICAR -->
+                        <th></th> <!-- BOTON ELIMINAR -->
+                    </tr>
+                    {% for user in usuarios %}
+                    <tr>
+                        <td>{{ user.getUsuario }}</td>
+                        <td>{{ user.getNombre }}</td>
+                        <td>{{ user.getApellido }}</td>
+                        <td>{{ user.getDocumento }}</td>
+                        <td>{{ user.getTelefono }}</td>
+                        <td>
+                            {% if user.getRol == 0 %}
+                                Administracion
+                            {% elseif user.getRol == 1 %}
+                                Gestion
+                            {% else %}
+                                Usuario Online
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.getHabilitado == 0 %}
+                                No
+                            {% else %}
+                                Si
+                            {% endif %}
+                        </td>
+                        <td><a href="./?action=user_modify_check&id={{user.getId}}"><i class="fa fa-pencil"></i></a></td>
+                        <td><a href="./?action=user_delete&id={{user.getId}}"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if num_pagina > 0 %}
+                <button id="izquierda" type="submit" onClick="window.location.href='./?action=user_list&anterior={{num_pagina}}'">Anterior</button>
+                {% endif %}
+                {% if num_pagina < total_paginas %}
+                <button id="derecha" type="reset" onClick="window.location.href='./?action=user_list&siguiente={{num_pagina}}'">Siguiente</button>
+                {% endif %}
+            </article>
+            <a id="add" href="./?action=user_add">Agregar nuevo usuario</a>
+        </div>
+{% endblock %}

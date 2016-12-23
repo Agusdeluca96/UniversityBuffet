@@ -1,0 +1,30 @@
+{% extends "list_parent.html.twig" %}
+
+{% block content %}
+        <div class="right_side">
+            <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+                <h2>Listado de Men&uacute;s del D&iacute;a</h2>
+                <table>
+                    <tr>
+                        <th>Fecha</th>
+                        <th></th> <!-- BOTON MODIFICAR -->
+                        <th></th> <!-- BOTON ELIMINAR -->
+                    </tr>
+                    {% for menu in menus %}
+                    <tr>
+                        <td>{{ menu.getFecha }}</td>
+                        <td><a href="./?action=menu_modify_check&id={{menu.getId}}"><i class="fa fa-pencil"></i></a></td>
+                        <td><a href="./?action=menu_delete&id={{menu.getId}}"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if num_pagina > 0 %}
+                <button id="izquierda" type="submit" onClick="window.location.href='./?action=menu_list&anterior={{num_pagina}}'">Anterior</button>
+                {% endif %}
+                {% if num_pagina < total_paginas %}
+                <button id="derecha" type="reset" onClick="window.location.href='./?action=menu_list&siguiente={{num_pagina}}'">Siguiente</button>
+                {% endif %}
+            </article>
+            <a id="add" href="./?action=menu_add">Agregar nueva menu</a>
+        </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}  
+    <script src="js/order_validation.js"></script>
+{% endblock %}
+
+{% block content %}
+    {% for pedido in pedidos %}
+        {{pedido.getFecha}}
+    {% endfor %}
+
+    <div class="right_side"> 
+        <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+            <h2>Listado de Pedidos Online</h2>
+            <table>
+                    <tr>
+                        {% if rol == 0 or rol == 1 %}
+                            <th>Usuario</th>
+                            <th>Departamento</th>
+                        {% endif %}
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        {% if rol == 0 or rol == 1 %}
+                            <th>Ver</th>
+                        {% endif %}
+                        
+                    </tr>
+                    {% for pedido in pedidos %}
+                    <tr>
+                    {% if rol == 0 or rol == 1 %}
+                        {% for user in users %}
+                            {% if user.getId == pedido.getUsuarioId %}
+                                <td>{{ user.getUsuario }}</td>
+                                <td>{{ user.getDepartamento }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                                <td>{{ pedido.getFechaAlta }}</td>
+                        {% if pedido.getEstado == 0 %}
+                                <td>Pendiente</td>
+                        {% elseif pedido.getEstado == 1 %}
+                                <td>Entregado</td>
+                        {% else %}
+                                <td>Cancelado</td>
+                        {% endif %}
+                                <td><a href="./?action=order_view&id={{pedido.getId}}"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    {% endfor %}
+
+            </table>
+            {% if num_pagina > 0 %}
+            <button id="izquierda" type="submit" onClick="window.location.href='./?action=order_list&anterior={{num_pagina}}&desde={{desde}}&hasta={{hasta}}'">Anterior</button>
+            {% endif %}
+            {% if num_pagina < total_paginas %}
+            <button id="derecha" type="reset" onClick="window.location.href='./?action=order_list&siguiente={{num_pagina}}&desde={{desde}}&hasta={{hasta}}'">Siguiente</button>
+            {% endif %}
+        </article>
+    </div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="css/productos_agregar.css"> 	<!--LINK A LA HOJA DE ESTILO-->
+    <script type="text/javascript">
+    		function ubicacionObligatoria(){
+    			var departamento = document.getElementById("departamento").value;
+				var rol = document.getElementsByName("rol")[0].value;
+				if (rol == 2){
+					if (ubicacion == ''){
+						alert('Debe completar la ubicacion para continuar.');
+						return false;
+					}
+				}
+    		}
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Modificaci&oacute;n de Usuario</h2>
+		<form method="post" action="./?action=user_modify&id={{usuario.getId}}" class="userForm">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="username" class="">Nombre de Usuario</label>
+		            <input type="text" id="username" name="username" class="inputElement" value="{{usuario.getUsuario}}" placeholder="Ingresa el nombre de usuario aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="nombre" class="">Nombre</label>
+		            <input type="text" id="nombre" name="nombre" class="inputElement" value="{{usuario.getNombre}}" placeholder="Ingresa el nombre aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="apellido" class="">Apellido</label>
+		            <input type="text" id="apellido" name="apellido" class="inputElement" value="{{usuario.getApellido}}" placeholder="Ingresa el apellido aqui ..." required>
+		        </div>
+
+		        <div class="">
+		            <label for="dni" class="">DNI</label>
+		            <input type="text" id="dni" name="dni" class="inputElement" onkeypress="return justNumbers(event);" maxlength="8" value="{{usuario.getDocumento}}" placeholder="Ingrese el DNI aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="mail" class="">Mail</label>
+		            <input type="email" id="mail" name="mail" class="inputElement" value="{{usuario.getEmail}}" placeholder="Ingrese el mail aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="contrasena" class="">Contrase&ntilde;a</label>
+		            <input type="password" id="contrasena" name="contrasena" class="inputElement" value="{{usuario.getClave}}" placeholder="Ingrese la contraseña aqui ..." required>
+		        </div>
+		        <div class="">
+		            <input type="password" id="contrasena2" name="contrasena2" class="inputElement" value="{{usuario.getClave}}" placeholder="Vuelva a ingresar la contraseña aqui ..." required>
+		        </div>
+		        <div class="">
+		            <label for="telefono" class="">Telefono</label>
+		            <input type="text" id="telefono" name="telefono" class="inputElement" onkeypress="return justNumbers(event);" maxlength="15" value="{{usuario.getTelefono}}" placeholder="Ingrese el telefono aqui ..." required>
+		        </div>
+				<div class="">
+		            <label for="seleccion" class="">Rol</label>
+		            <div class="select">
+		                <select id="seleccion" name="rol" required>
+		                	{% if usuario.getRol == 0 %}
+		                    	<option value="">Seleccione una opcion</option>
+		                    	<option value="0" selected> Administracion </option>
+		                    	<option value="1"> Gestion </option>
+		                    	<option value="2"> Usuario Online </option>
+            				{% elseif usuario.getRol == 1 %}
+		                    	<option value="">Seleccione una opcion</option>
+		                    	<option value="0"> Administracion </option>
+		                    	<option value="1" selected> Gestion </option>
+		                    	<option value="2"> Usuario Online </option>
+		                    {% elseif usuario.getRol == 2 %}
+		                    	<option value="">Seleccione una opcion</option>
+		                    	<option value="0"> Administracion </option>
+		                    	<option value="1"> Gestion </option>
+		                    	<option value="2" selected> Usuario Online </option>
+		                    {% else %}
+		                    	<option selected value="">Seleccione una opcion</option>
+		                    	<option value="0"> Administracion </option>
+		                    	<option value="1"> Gestion </option>
+		                    	<option value="2"> Usuario Online </option>
+			                {% endif %}
+		                </select>
+		            </div>
+		        </div>
+				<div class="">
+		            <label for="seleccion2" class="">Habilitado</label>
+		            <div class="select">
+		                <select id="seleccion2" name="habilitado" required>
+		                	{% if usuario.getHabilitado == 0 %}
+		                	    <option value="">Seleccione una opcion</option>
+			                    <option value="0" selected> No </option>
+			                    <option value="1"> Si </option>
+            				{% else %}
+            				    <option value="">Seleccione una opcion</option>
+                                <option value="1" selected> Si </option>
+			                    <option value="0"> No </option>
+			                {% endif %}
+		                </select>
+		            </div>
+		        </div>
+		        <div class="">
+		            <label for="ubicacion" class="">Ubicacion</label>
+		            <input type="text" id="ubicacion" name="ubicacion" class="inputElement" value="{{usuario.getUbicacionId}}" placeholder="Ingrese la ubicacion aqui ...">
+		        </div>
+		        <div class="">
+		            <label for="departamento" class="">Departamento en que trabaja</label>
+		            <input type="text" id="departamento" name="departamento" class="inputElement" value="{{usuario.getDepartamento}}" placeholder="Ingresa el departamento aqui ...">
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Modificar</button>
+			    <button id="derecha" type="reset">Reset</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

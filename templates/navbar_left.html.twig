@@ -1,0 +1,67 @@
+{% if rol is not null %}
+    {% if rol < 2 or rol == 4 %}
+<aside>	<!--MENU LATERAL-->
+	<ul>
+		<li><h4>Productos</h4>
+		    <ul>
+                <li><a href="./?action=product_add">Agregar Producto</a></li>
+                <li><a href="./?action=product_list">Listado Productos</a></li>
+        	</ul>
+        </li>
+		<li><h4>Ventas</h4>
+            <ul>
+                <li><a href="./?action=sale_add">Agregar Venta</a></li>
+                <li><a href="./?action=sale_list">Listado Ventas</a></li>
+            </ul>
+        </li>
+		<li><h4>Gastos</h4>
+            <ul>
+                <li><a href="./?action=expense_add">Agregar Gasto</a></li>
+                <li><a href="./?action=expense_list">Listado Gastos</a></li>
+            </ul>
+        </li>
+		<li><h4>Men&uacute;</h4>
+		    <ul>
+                <li><a href="./?action=menu_add">Agregar Men&uacute;</a></li>
+                <li><a href="./?action=menu_list">Listado Men&uacute;es</a></li>
+        	</ul>
+        </li>
+        {% if rol == 0 or rol == 4 %}
+		<li><h4>Usuarios</h4>
+            <ul>
+                <li><a href="./?action=user_add">Agregar Usuario</a></li>
+                <li><a href="./?action=user_list">Listado Usuarios</a></li>
+            </ul>
+        </li>
+        {% endif %}
+		<li><h4>Pedidos Online</h4>
+            <ul>
+                <li><a href="./?action=order_list">Listado Pedidos Online</a></li>
+            </ul>
+        </li>
+        {% if rol == 0 or rol == 1 or rol == 4 %}
+		<li><h4>Balance</h4>
+		    <ul>
+                {% if rol == 1 or rol == 4 %}
+                <li><a href="./?action=product_low_stock">Listado Productos Faltantes</a></li>
+                <li><a href="./?action=product_limit_stock">Listado Productos Stock Minimo</a></li>
+                {% endif %}
+                <li><a href="./?action=summaryEarnings_index">Resumen Ganancia</a></li>
+                <li><a href="./?action=summaryProducts_index">Resumen Productos</a></li>
+        	</ul>
+        </li>
+        {% endif %}
+        {% if rol == 0 or rol == 4 %}
+		<li><h4><a href="./?action=config_list">Configuracion</a></h4></li>
+        {% endif %}
+        {% if rol == 0 or rol == 4 %}
+        <li><h4>Telegram</h4>
+            <ul>
+                <li><a href="./?action=broadcast">Enviar Menu del Dia</a></li>
+            </ul>
+        </li>
+        {% endif %}
+	</ul>
+</aside>
+    {% endif %}
+{% endif %}

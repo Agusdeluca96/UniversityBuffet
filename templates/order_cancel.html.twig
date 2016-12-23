@@ -1,0 +1,26 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Cancelacion del pedido</h2>
+		<form method="post" action="./?action=order_cancel&id={{pedido.getId}}" class="productForm">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+		        <div class="">
+		            <label for="descripcion" class="">Motivo de Cancelacion</label>
+		        	<textarea type="long-text" maxlength="255" name="descripcion" id="descripcion" class="inputElement" placeholder="Ingresa el motivo de cancelacion aqui ..." ></textarea>
+		        </div>
+		    </div>
+			<div>
+			    <button id="izquierda" type="submit">Aceptar</button>
+			    <button id="derecha" type="reset" onClick="window.location.href='./?action=order_list'">Cancelar</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

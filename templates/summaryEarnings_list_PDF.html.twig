@@ -1,0 +1,33 @@
+{% extends "list_parent.html.twig" %}
+
+{% block head %}
+    <script type="text/javascript" src="js/jspdf.debug.js"></script>
+    <script type="text/javascript" src="js/exportPDF.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="right_side">
+        <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+            <h2>Listado de Ganancias</h2>
+            <table>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Ganancia</th>
+                </tr>
+                {% for ganancia in ganancias %}
+                <tr>
+                    <td>{{ ganancia.getFecha }}</td>
+                    <td>{{ ganancia.getMonto }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </article>
+    </div>
+    <div>
+        <script type="text/javascript">
+            savePDF();
+            window.location.href='./?action=summaryEarnings_list&desde={{desde}}&desdeInicio={{desdeInicio}}&hasta={{hasta}}&hastaFin={{hastaFin}}&total_paginas={{total_paginas}}';
+        </script>
+    </div>
+{% endblock %}

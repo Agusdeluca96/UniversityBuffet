@@ -1,0 +1,29 @@
+{% extends "add_parent.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<div class="right_side">
+	<article class="agregar_articulo">	<!--CUERPO DE LA PAGINA-->
+		<h2>Resumen de Productos</h2>
+		<h3>Seleccione las fechas y tipo de estadistica</h3>
+		<form method="post" action="./?action=summaryProducts_index_check" class="productForm" enctype="multipart/form-data">
+			<input type="hidden" name="token" value="{{token}}" />
+		    <div class="">
+                <div>   
+                    <label id="inline">Fecha Inicio: </label>
+                    <input id="fecha" name="desde" type="date" required>
+                    <label id="inline">Fecha Fin: </label>
+                    <input id="fecha" name="hasta" type="date" required>
+                </div>
+		    </div>
+		   	<div>
+			    <button id="izquierda" name="opcionElegida" value="listado" type="submit">Listado</button>
+			    <button id="derecha" name="opcionElegida" value="graficoTorta" type="submit">Grafico de Torta</button>
+			</div>
+		</form>
+	</article>
+</div>
+{% endblock %}

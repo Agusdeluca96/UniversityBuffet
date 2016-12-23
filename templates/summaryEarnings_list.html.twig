@@ -1,0 +1,28 @@
+{% extends "list_parent.html.twig" %}
+
+{% block content %}
+        <div class="right_side">
+            <article class="agregar_articulo">  <!--CUERPO DE LA PAGINA-->
+                <h2>Listado de Ganancias</h2>
+                <table>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Ganancia</th>
+                    </tr>
+                    {% for ganancia in ganancias %}
+                    <tr>
+                        <td>{{ ganancia.getFecha }}</td>
+                        <td>{{ ganancia.getMonto }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if num_pagina > 0 %}
+                <button id="izquierda" type="submit" onClick="window.location.href='./?action=summaryEarnings_list&anterior={{num_pagina}}&desde={{desde}}&desdeInicio={{desdeInicio}}&hasta={{hasta}}&hastaFin={{hastaFin}}&total_paginas={{total_paginas}}'">Anterior</button>
+                {% endif %}
+                {% if num_pagina < total_paginas %}
+                <button id="derecha" type="reset" onClick="window.location.href='./?action=summaryEarnings_list&siguiente={{num_pagina}}&desde={{desde}}&desdeInicio={{desdeInicio}}&hasta={{hasta}}&hastaFin={{hastaFin}}&total_paginas={{total_paginas}}'">Siguiente</button>
+                {% endif %}
+            </article>
+            <button onclick="window.location.href='./?action=summaryEarnings_list_PDF&numero_pagina={{num_pagina}}&desde={{desde}}&desdeInicio={{desdeInicio}}&hasta={{hasta}}&hastaFin={{hastaFin}}&total_paginas={{total_paginas}}'">Listar PDF</button>
+        </div>
+{% endblock %}
